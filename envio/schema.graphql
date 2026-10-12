@@ -1,0 +1,105 @@
+type ContractRegistry {
+  id: ID!
+  name: String!
+  address: String!
+  setTime: Int!
+}
+
+type VaultBalance {
+  id: ID!
+  traderAddress: String!
+  balance: BigInt!
+  createdAt: Int!
+  updatedAt: Int!
+}
+
+type MarketPosition {
+  id: ID!
+  marketAddress: String!
+  traderAddress: String!
+  usdcLocked: BigInt!
+  yesAmount: BigInt!
+  yesLocked: BigInt!
+  noAmount: BigInt!
+  noLocked: BigInt!
+  createdAt: Int!
+  updatedAt: Int!
+}
+
+type MarketState {
+  id: ID!
+  marketAddress: String!
+  takerFeeRate: BigInt!
+  makerRebateRate: BigInt!
+  marketState: Int!
+  oracle: String!
+  vault: String!
+  marketFeeReceived: BigInt!
+  bestNoBuyPrice: Int!
+  bestNoSellPrice: Int!
+  bestYesBuyPrice: Int!
+  bestYesSellPrice: Int!
+  createdAt: Int!
+  updatedAt: Int!
+}
+
+type MarketOrders {
+  id: ID!
+  marketAddress: String!
+  traderAddress: String!
+  isYes: Boolean!
+  isBuy: Boolean!
+  price: Int!
+  orderIndex: BigInt!
+  version: Int!
+  shareAmount: BigInt!
+  endTimestamp: BigInt!
+  insertEventId: String!
+  createdAt: Int!
+  updatedAt: Int!
+}
+
+type MarketTransaction {
+  id: ID!
+  marketAddress: String!
+  makerAddress: String!
+  takerAddress: String!
+  shareAmount: BigInt!
+  price: Int!
+  makerFeeAmount: BigInt!
+  marketFeeAmount: BigInt!
+  isBuy: Boolean!
+  isYes: Boolean!
+  orderIndex: BigInt!
+  transactionHash: String!
+  logIndex: Int!
+  timestamp: Int!
+}
+
+type VaultTransaction {
+  id: ID!
+  tradeType: String!
+  traderAddress: String
+  usdcAmount: BigInt!
+  marketAddress: String
+  transactionHash: String!
+  logIndex: Int!
+  timestamp: Int!
+}
+
+type MarketOrderHistory {
+  id: ID!
+  marketAddress: String!
+  traderAddress: String!
+  orderType: String!
+  price: Int
+  shareAmount: BigInt
+  endTimestamp: BigInt
+  version: Int
+  isBuy: Boolean
+  isYes: Boolean
+  orderIndex: BigInt
+  transactionHash: String!
+  logIndex: Int!
+  timestamp: Int!
+}

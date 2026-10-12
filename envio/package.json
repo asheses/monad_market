@@ -1,0 +1,18 @@
+{
+  "name": "monad-market-indexer",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "codegen": "envio codegen",
+    "typecheck": "tsc --noEmit",
+    "dev": "envio dev"
+  },
+  "dependencies": {
+    "envio": "3.14.0",
+    "viem": "^2.57.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  }
+}

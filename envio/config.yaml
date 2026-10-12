@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: monad-market-indexer
+description: bitmapLink market and vault events on Monad testnet
+address_format: lowercase
+field_selection:
+  transaction_fields:
+    - hash
+contracts:
+  - name: MarketFactory
+    events:
+      - event: "CreateMarket(address market, address oracle, uint96 feeRate, uint96 makerRebateRate)"
+      - event: "SetVault(address vaultAddress)"
+  - name: Vault
+    events:
+      - event: "SetMarketFactory(address marketFactory)"
+      - event: "RegisterMarket(address market)"
+      - event: "Deposit(address indexed trader, uint96 _USDCAmount)"
+      - event: "WithDraw(address indexed trader, uint96 _USDCAmount)"
+      - event: "LockDeposit(address market, address indexed trader, uint96 _USDCAmount)"
+      - event: "ReleaseDeposit(address market, address indexed trader, uint96 _USDCAmount)"
+      - event: "ApplyMakerResult(address market, uint96 _USDCAmount, address trader)"
+      - event: "GetMarketFee(address market, uint96 _USDCAmount)"
+      - event: "WithDrawFee(address owner, uint96 _USDCAmount)"
+  - name: Market
+    events:
+      - event: "SetMarketState(uint8 _state)"
+      - event: "SetOracle(address _oracle)"
+      - event: "LockShareAmount(uint96 amount, address indexed trader, bool isYes)"
+      - event: "ReleaseShareAmount(uint96 amount, address indexed trader, bool isYes)"
+      - event: "SplitUSDC(address indexed trader, uint96 _USDCAmount)"
+      - event: "MergeShares(address indexed trader, uint96 _USDCAmount)"
+      - event: "Redeem(address indexed trader, uint96 _USDCLocked, uint96 shareAmount, bool isYes)"
+      - event: "UpdateVersion(address indexed trader, uint32 newVersion)"
+      - event: "ChangeBestPrice(uint8 bestPriceType, uint8 price)"
+      - event: "DeleteOrder(address indexed trader, uint8 price, uint256 orderIndex, bool isYes)"
+      - event: "TradeInfo(address indexed maker, address indexed taker, uint96 shareAmount, uint32 price, uint96 makerFeeAmount, uint96 marketFeeAmount, bool isBuy, bool isYes, uint32 index)"
+      - event: "OrderInsertInfo(address indexed trader, uint8 price, uint96 shareAmount, uint48 endTimestamp, uint32 version, bool isBuy, bool isYes, uint32 index)"
+chains:
+  - id: 10143
+    rpc:
+      - url: https://testnet-rpc.monad.xyz
+        for: realtime
+    start_block: 69906848
+    contracts:
+      - name: MarketFactory
+        address: "0x7498c4f4e23921d0029a3384beb594431eb46d44"
+      - name: Vault
+        address: "0x5fe1b0b06c228252427b26087ccf2d573c5ff142"
+      - name: Market
+      
