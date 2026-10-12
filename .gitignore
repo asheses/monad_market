@@ -1,0 +1,20 @@
+cat > .gitignore << 'EOF'
+# Foundry 依赖库（这是别人写的，不应该提交）
+lib/
+
+# Foundry 构建产物
+out/
+cache/
+broadcast/
+
+# 前端依赖（如果你用了）
+node_modules/
+
+# 环境变量（极其重要，不能上传！）
+.env
+.env.local
+
+# 系统垃圾文件
+.DS_Store
+Thumbs.db
+EOF
