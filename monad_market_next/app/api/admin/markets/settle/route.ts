@@ -1,0 +1,4 @@
+import { NextResponse } from "next/server";
+import { db, settleMarket } from "@/lib/server/admin";
+export const runtime = "nodejs";
+export async function POST(request: Request) { try { const { marketAddress, state } = await request.json() as { marketAddress: `0x${string}`; state: 1 | 2 }; if (![1,2].includes(state)) throw new Error("结算状态无效"); const hash = await settleMarket(marketAddress, state); const c = await db(); try { await c.query('UPDATE market_realtime.market_metadata SET status=$1,"settleTxHash"=$2 WHERE "marketAddress"=$3', [state === 1 ? "YES_WON" : "NO_WON", hash, marketAddress.toLowerCase()]); } finally { await c.end(); } return NextResponse.json({ hash }); } catch (e) { return NextResponse.json({ error: e instanceof Error ? e.message : "结算失败" }, { status: 400 }); } }
