@@ -2760,8 +2760,35 @@ input[type="number"] {
 .price-input button { width:32px; height:32px; border:1px solid #e3deeb; border-radius:8px; background:#fff; font-size:20px; }
 .price-input input { width:64px; text-align:center; font-size:18px; }
 .market-main, .trade-sidebar { min-height:0; overflow-y:visible; max-height:none; }
-/* Keep the market and footer in normal page flow so all content is reachable. */
-.market-shell:has(.market-layout) .trade-sidebar { position:static; }
+/* Give the two market columns independent scroll areas, with the footer below them. */
+@media (min-width: 801px) {
+  .market-shell:has(.market-layout) {
+    min-height:100vh;
+    min-height:100dvh;
+  }
+  .market-shell:has(.market-layout) .page-container {
+    height:auto;
+    margin-top:0;
+    margin-bottom:0;
+  }
+  .market-shell:has(.market-layout) .market-layout {
+    height:calc(100vh - 195px);
+    height:calc(100dvh - 195px);
+    min-height:0;
+    align-items:stretch;
+  }
+  .market-shell:has(.market-layout) .market-main,
+  .market-shell:has(.market-layout) .trade-sidebar {
+    min-height:0;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    scrollbar-width:none;
+  }
+  .market-shell:has(.market-layout) .market-main::-webkit-scrollbar,
+  .market-shell:has(.market-layout) .trade-sidebar::-webkit-scrollbar { display:none; }
+  .market-shell:has(.market-layout) .trade-sidebar { position:static; }
+  .market-shell:has(.market-layout) .site-footer { width:calc(100% - 64px); }
+}
 .usdc-controls .secondary-button { padding: 8px 10px; font-size: 12px; }
 .trade-fieldset, .funds-panel fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 .funds-panel { margin-top: 16px; padding: 18px; border: 1px solid #e9e5f0; border-radius: 14px; background: white; }
