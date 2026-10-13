@@ -1,6 +1,5 @@
 cat > .gitignore << 'EOF'
 # Foundry 依赖库（这是别人写的，不应该提交）
-lib/
 
 # Foundry 构建产物
 out/
@@ -18,3 +17,6 @@ node_modules/
 .DS_Store
 Thumbs.db
 EOFbroadcast/
+foundry/lib/
+foundry/broadcast/
+foundry/broadcast/
