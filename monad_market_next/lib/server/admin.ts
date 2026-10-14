@@ -29,5 +29,8 @@ export async function createMarketOnChain(oracle: Address, feeRate: bigint, reba
 export async function settleMarket(market: Address, state: 1 | 2) {
   const oracle = account("ORACLE_PRIVATE_KEY");
   const wallet = createWalletClient({ account: oracle, chain: { id: chainId, name: "Monad Testnet", nativeCurrency: { name: "MON", symbol: "MON", decimals: 18 }, rpcUrls: { default: { http: [rpc] } } }, transport: http(rpc) });
-  return wallet.writeContract({ address: market, abi: vaultAbi, functionName: "setMarketState", args: [state] });
+  const hash = await wallet.writeContract({ address: market, abi: vaultAbi, functionName: "setMarketState", args: [state] });
+  const receipt = await createPublicClient({ transport: http(rpc) }).waitForTransactionReceipt({ hash });
+  if (receipt.status !== "success") throw new Error(`结算交易失败：${receipt.transactionHash}`);
+  return receipt.transactionHash;
 }

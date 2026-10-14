@@ -1,4 +1,4 @@
-import { type DemoMarket, money } from "@/lib/market-data";
+import { type DemoMarket, money, marketDateLabel } from "@/lib/market-data";
 import { AssetSymbol, Icon } from "./icons";
 
 export function MarketHeader({
@@ -26,7 +26,7 @@ export function MarketHeader({
             <span className="event-badge">每日市场</span>
           </div>
           <h1>
-            {market.title}在9月{day}日高于多少？
+            {market.title}在{marketDateLabel(market, day)}高于多少？
           </h1>
         </div>
         <div className="header-actions">
@@ -52,7 +52,7 @@ export function MarketHeader({
           <Icon name="chart" size={14} /> ${money(market.volume)} 交易量
         </span>
         <span>
-          <Icon name="clock" size={14} /> 2026年9月{day}日
+          <Icon name="clock" size={14} /> {marketDateLabel(market, day, true)}
         </span>
         <span className={day < 15 ? "closed-label" : "live-label"}>
           <span className="live-dot" />

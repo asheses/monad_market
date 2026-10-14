@@ -15,6 +15,26 @@ export type DemoMarket = {
   settleAt?: string;
   status?: string;
 };
+// Database settlement timestamps are displayed in the market's UTC+8 timezone.
+export function marketDateLabel(market: DemoMarket, day = 15, includeYear = false) {
+  if (!market.settleAt) return `${includeYear ? "2026年" : ""}9月${day}日`;
+  const date = new Date(market.settleAt);
+  if (Number.isNaN(date.getTime())) return "日期待确认";
+  const parts = new Intl.DateTimeFormat("zh-CN", {
+    timeZone: "Asia/Shanghai", year: "numeric", month: "numeric", day: "numeric",
+  }).formatToParts(date);
+  const value = (type: string) => parts.find(part => part.type === type)?.value;
+  return `${includeYear ? `${value("year")}年` : ""}${value("month")}月${value("day")}日`;
+}
+export function marketSettlementLabel(market: DemoMarket, day = 15) {
+  if (!market.settleAt) return `2026/09/${day} 12:00 UTC`;
+  const date = new Date(market.settleAt);
+  if (Number.isNaN(date.getTime())) return "时间待确认";
+  return `${new Intl.DateTimeFormat("zh-CN", {
+    timeZone: "Asia/Shanghai", year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23",
+  }).format(date)} UTC+8`;
+}
 export const markets: DemoMarket[] = [
   {
     id: "bitcoin",

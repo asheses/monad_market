@@ -13,6 +13,8 @@ import { Dropdown, Modal } from "@/components/market/ui";
 import {
   markets as staticMarkets,
   makePriceData,
+  marketDateLabel,
+  marketSettlementLabel,
   money,
   probabilityFor,
   targetLabel,
@@ -379,7 +381,7 @@ export function WalletShell() {
                         />
                       </span>
                       <strong>
-                        {item.title}在9月15日高于 $
+                        {item.title}在{marketDateLabel(item)}高于 $
                         {targetLabel(item.targets[2])}？
                       </strong>
                     </button>
@@ -799,13 +801,13 @@ export function WalletShell() {
                       <div className="market-rules">
                         <h3>这个市场如何结算？</h3>
                         <p>
-                          本演示市场以 2026 年 9 月 {day} 日 12:00 UTC 的{" "}
+                          本市场以 {marketSettlementLabel(market, day)} 的{" "}
                           {market.title} / USD
                           参考价格为判定点。若参考价格严格高于所选价位，则该结果判定为「是」；低于或等于则判定为「否」。
                         </p>
                         <div>
                           <span>结算时间</span>
-                          <strong>2026/09/{day} 12:00 UTC</strong>
+                          <strong>{marketSettlementLabel(market, day)}</strong>
                         </div>
                         <div>
                           <span>参考数据</span>
@@ -864,7 +866,7 @@ export function WalletShell() {
                         />
                       </span>
                       <span>
-                        <strong>{item.title}在9月15日高于多少？</strong>
+                        <strong>{item.title}在{marketDateLabel(item)}高于多少？</strong>
                         <small>
                           ${(item.volume / 1000).toFixed(1)}k 交易量
                         </small>
@@ -916,7 +918,7 @@ export function WalletShell() {
               <AssetSymbol symbol={market.symbol} fallback={market.icon} />
             </div>
             <h3>
-              {market.title}在9月{day}日高于 ${targetLabel(target)}？
+              {market.title}在{marketDateLabel(market, day)}高于 ${targetLabel(target)}？
             </h3>
             <div>
               <strong>{probability}%</strong>

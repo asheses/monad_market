@@ -64,3 +64,5 @@ npm run dev
 # 终端二
 cd /home/xxx/monad_market/monad_market_next
 npm run dev
+
+ssh -i "C:\Users\xxx\Downloads\market.pem" ubuntu@ec2-13-217-22-177.compute-1.amazonaws.com

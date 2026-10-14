@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { formatUnits } from "viem";
 import { useAccount } from "wagmi";
-import { type DemoMarket, targetLabel } from "@/lib/market-data";
+import { type DemoMarket, targetLabel, marketDateLabel } from "@/lib/market-data";
 import { configuredAddress, marketAddresses, marketKey } from "@/lib/contracts/config";
 import { tradeCall } from "@/lib/contracts/transactions";
 import { useTransactions } from "../transactions-provider";
@@ -58,7 +58,7 @@ export function TradingPanel({ market, day, target, outcome, onOutcome, orderTyp
     <div className="trading-panel" id="trade-panel">
       <div className="panel-market-summary">
         <div className="mini-market-icon" style={{ background: market.color }}><AssetSymbol symbol={market.symbol} fallback={market.icon} /></div>
-        <div><div className="panel-question">{market.title}在9月{day}日高于</div><div className="panel-answer">${targetLabel(target)} · {outcome === "yes" ? "是" : "否"}</div></div>
+        <div><div className="panel-question">{market.title}在{marketDateLabel(market, day)}高于</div><div className="panel-answer">${targetLabel(target)} · {outcome === "yes" ? "是" : "否"}</div></div>
         <span className="demo-badge">测试网</span>
       </div>
       <fieldset disabled={busy} className="trade-fieldset">
